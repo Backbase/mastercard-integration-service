@@ -22,6 +22,7 @@
         <swagger-annotations.version>2.2.8</swagger-annotations.version>
         <jackson-databind-nullable.version>0.2.3</jackson-databind-nullable.version>
         <jsr305.version>3.0.2</jsr305.version>
+        <docker.repo.project>development</docker.repo.project>
     </properties>
 
     <dependencyManagement>

@@ -45,6 +45,7 @@ public class BalanceService {
             PostAccountsAccountBalancesOKBody accountBalances = accountBalancesApi.getAccountBalances(balances);
             return balanceMapper.map(accountBalances);
         } catch (ApiException e) {
+            log.error("Error when fetching balances", e);
             throw new BadRequestException(e);
         }
     }
