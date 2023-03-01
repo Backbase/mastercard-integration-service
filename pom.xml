@@ -12,7 +12,7 @@
 
     <groupId>com.backbase</groupId>
     <artifactId>mastercard-integration-service</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Backbase :: Mastercard Integration Service</name>
 
     <properties>

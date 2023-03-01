@@ -4,9 +4,9 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 import com.backbase.arrangement.integration.outbound.balance.models.BalanceItem;
 import com.backbase.buildingblocks.presentation.errors.BadRequestException;
+import com.backbase.buildingblocks.presentation.errors.NotFoundException;
 import com.backbase.mastercard.mapping.BalanceMapper;
 import com.backbase.mastercard.util.RequestUtils;
-import com.mastercard.openbanking.accounts.ApiException;
 import com.mastercard.openbanking.accounts.api.AccountBalancesApi;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBody;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesParamsBody;
@@ -26,7 +26,7 @@ public class BalanceService {
 
     private final AccountBalancesApi accountBalancesApi;
     private final BalanceMapper balanceMapper;
-    private final Executor executor;
+    private final Executor asyncExecutor;
     private final RequestUtils requestUtils;
 
     public List<BalanceItem> getBalances(Set<String> arrangementIds) {
@@ -34,19 +34,29 @@ public class BalanceService {
             .map(id -> new PostAccountsAccountBalancesParamsBody()
                 .accountId(id)
                 .requestInfo(requestUtils.buildBalancesRequestInfo()))
-            .map(balanceRequest -> supplyAsync(() -> getArrangementBalance(balanceRequest), executor))
+            .map(balanceRequest -> supplyAsync(() -> getArrangementBalance(balanceRequest), asyncExecutor)
+                .exceptionally(
+                    e -> {
+                        log.error("Error when fetching balances for account", e);
+                        throw (RuntimeException) e;
+                    }))
             .collect(Collectors.collectingAndThen(Collectors.toList(), c -> c.stream().map(CompletableFuture::join)))
             .toList();
     }
 
     private BalanceItem getArrangementBalance(PostAccountsAccountBalancesParamsBody balances) {
         try {
-            log.info("Fetching balances for account: {}", balances.getAccountId());
+            log.debug("Fetching balances for account: {}", balances.getAccountId());
             PostAccountsAccountBalancesOKBody accountBalances = accountBalancesApi.getAccountBalances(balances);
-            return balanceMapper.map(accountBalances);
-        } catch (ApiException e) {
-            log.error("Error when fetching balances", e);
-            throw new BadRequestException(e);
+            if (accountBalances.getAccount() == null) {
+                throw new NotFoundException().withMessage("Balances not found for account: " + balances.getAccountId());
+            }
+            return balanceMapper.map(accountBalances.getAccount());
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BadRequestException(e)
+                .withMessage("Error when fetching balances for account: " + balances.getAccountId());
         }
     }
 }
