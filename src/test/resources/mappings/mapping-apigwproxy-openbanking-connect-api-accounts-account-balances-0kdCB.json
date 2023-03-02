@@ -1,0 +1,55 @@
+{
+  "id": "80d79d24-7f4f-38d8-93fa-eb93977597fe",
+  "request": {
+    "url": "/accounts/account/balances",
+    "method": "POST",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"requestInfo\":{\"consentId\":\"GFiTpF3:EBy5xGqQMatk\",\"aspspId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"isLivePsuRequest\":true,\"psuTppCustomerId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"psuIPAddress\":\"192.168.0.1\",\"psuAgent\":\"PostmanRuntime/7.20.1\",\"merchant\":{\"id\":\"MerchantId\",\"name\":\"MerchantName\"}},\"accountId\":\"aa:q648383844dhhfHhTV\"}",
+        "ignoreArrayOrder": true,
+        "ignoreExtraElements": true
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "body-apigwproxy-openbanking-connect-api-accounts-account-balances-0kdCB.json",
+    "headers": {
+      "Date": "Tue, 28 Feb 2023 22:29:23 GMT",
+      "Content-Type": "application/json",
+      "Vary": "Accept-Encoding",
+      "Cache-Control": "no-cache,no-store,max-age=0",
+      "Correlation-Id": "9178f239-1537-4289-a393-399cf0cfe994",
+      "Pragma": "no-cache",
+      "Strict-Transport-Security": [
+        "max-age=31536000 ; includeSubDomains",
+        "max-age=15768000;"
+      ],
+      "X-B3-Spanid": "5c68a7079c6dc415",
+      "X-B3-Traceid": "5f54e18089bc2ca45c68a7079c6dc415",
+      "X-Content-Type-Options": [
+        "nosniff",
+        "nosniff"
+      ],
+      "X-Edgeconnect-Midmile-Rtt": "89",
+      "X-Edgeconnect-Origin-Mex-Latency": "195",
+      "X-Frame-Options": [
+        "DENY",
+        "SAMEORIGIN"
+      ],
+      "X-Mc-Correlation-Id": "0.ca1c2117.1677623362.1875d82",
+      "X-Vcap-Request-Id": "ba35ccd5-36ba-417e-4802-201464d3bc5e",
+      "X-Xss-Protection": [
+        "1; mode=block",
+        "1; mode=block"
+      ],
+      "Set-Cookie": [
+        "x-mc-web-ss=stl;  Path=/; HttpOnly; Secure",
+        "LBSESSION2=!JW58KFHmOFMI0B9aVAB7cVQBOYsIlyrYgZjrbnanh04rnBkwAqR4pk+iyKchmuMg4Yq3qauU0wc1gw==; expires=Tue, 28-Feb-2023 22:59:23 GMT; path=/; Httponly; Secure",
+        "TS01cc8956=01772feb4b01c4fc80398338bff2fb15ebcab7d8198cef77d340e4d5aaa4e71ee678628c30c2885e1f8cc0c63b6862b563167f0392; Path=/; Secure; HTTPOnly",
+        "ILB=!hSyWz5dvaqR80hmjuDabzbQPocOA6xKvQubvcOO7ZxNcXI6MDL5jqWHVTWk/i4hQ4KBO2Sv66yJsoBY=; expires=Tue, 28-Feb-2023 22:59:23 GMT; path=/; Httponly; Secure"
+      ]
+    }
+  },
+  "uuid": "80d79d24-7f4f-38d8-93fa-eb93977597fe"
+}

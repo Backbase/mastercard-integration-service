@@ -18,6 +18,7 @@ public class AccountsApiConfiguration {
 
     @Bean
     public ApiClient apiClient(AccountsApiProperties accountsApiProperties) {
+        log.debug("Configuring api with Base Uri: {}", accountsApiProperties.getBaseUri());
         ApiClient apiClient = new ApiClient();
         apiClient.updateBaseUri(accountsApiProperties.getBaseUri());
         return configureProxy(apiClient, accountsApiProperties.getProxy());

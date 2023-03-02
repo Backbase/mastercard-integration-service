@@ -1,0 +1,38 @@
+{
+  "originalRequestInfo": {
+    "xRequestId": "862df04b-f263-4a84-86bb-c5b1d2160995"
+  },
+  "account": {
+    "resourceId": "aa:q648383844dhhfHhTV",
+    "name": "SandboxASPSP1 Account 1",
+    "balances": [
+      {
+        "balanceAmount": {
+          "currency": "GBP",
+          "amount": 102.56
+        },
+        "balanceType": "Available",
+        "creditDebitIndicator": "CREDIT",
+        "dateTime": "2019-03-21T10:33:13.001Z"
+      },
+      {
+        "balanceAmount": {
+          "currency": "GBP",
+          "amount": 987.99
+        },
+        "balanceType": "Available",
+        "creditDebitIndicator": "CREDIT",
+        "dateTime": "2019-03-23T09:15:13.001Z"
+      },
+      {
+        "balanceAmount": {
+          "currency": "GBP",
+          "amount": 11.54
+        },
+        "balanceType": "Current",
+        "creditDebitIndicator": "CREDIT",
+        "dateTime": "2019-03-26T11:34:13.001Z"
+      }
+    ]
+  }
+}
