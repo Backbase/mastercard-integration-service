@@ -5,7 +5,7 @@
     "method": "POST",
     "bodyPatterns": [
       {
-        "equalToJson": "{\"requestInfo\":{\"consentId\":\"GFiTpF3:EBy5xGqQMatk\",\"aspspId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"isLivePsuRequest\":true,\"psuTppCustomerId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"psuIPAddress\":\"192.168.0.1\",\"psuAgent\":\"PostmanRuntime/7.20.1\",\"merchant\":{\"id\":\"MerchantId\",\"name\":\"MerchantName\"}},\"accountId\":\"aa:q648383844dhhfHhTV\"}",
+        "equalToJson": "{\"requestInfo\":{\"consentId\":\"GFiTpF3:EBy5xGqQMatk\",\"aspspId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"isLivePsuRequest\":true,\"psuTppCustomerId\":\"420e5cff-0e2a-4156-991a-f6eeef0478cf\",\"psuAgent\":\"PostmanRuntime/7.20.1\",\"merchant\":{\"id\":\"MerchantId\",\"name\":\"MerchantName\"}},\"accountId\":\"aa:q648383844dhhfHhTV\"}",
         "ignoreArrayOrder": true,
         "ignoreExtraElements": true
       }

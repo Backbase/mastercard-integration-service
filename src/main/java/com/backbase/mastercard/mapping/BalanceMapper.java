@@ -1,15 +1,18 @@
 package com.backbase.mastercard.mapping;
 
 import com.backbase.arrangement.integration.outbound.balance.models.BalanceItem;
+import com.backbase.mastercard.model.RequestInfo;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccount;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItems;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItems.CreditDebitIndicatorEnum;
 import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItemsBalanceAmount;
+import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesParamsBodyRequestInfo;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface BalanceMapper {
@@ -17,7 +20,10 @@ public interface BalanceMapper {
     String CURRENT_BALANCE_INDICATOR = "Current";
     String AVAILABLE_BALANCE_INDICATOR = "Available";
 
-    default BalanceItem map(PostAccountsAccountBalancesOKBodyAccount account) {
+    @Mapping(source = "XRequestId", target = "xRequestId")
+    PostAccountsAccountBalancesParamsBodyRequestInfo mapRequestInfo(RequestInfo requestInfo);
+
+    default BalanceItem mapResponse(PostAccountsAccountBalancesOKBodyAccount account) {
         BalanceItem balance = new BalanceItem().arrangementId(account.getResourceId());
         List<PostAccountsAccountBalancesOKBodyAccountBalancesItems> balances = account.getBalances();
         if (balances != null) {

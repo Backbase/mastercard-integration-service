@@ -12,17 +12,17 @@
 
     <groupId>com.backbase</groupId>
     <artifactId>mastercard-integration-service</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <name>Backbase :: Mastercard Integration Service</name>
 
     <properties>
+        <docker.repo.project>development</docker.repo.project>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swagger-annotations.version>2.2.8</swagger-annotations.version>
-        <jackson-databind-nullable.version>0.2.3</jackson-databind-nullable.version>
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
         <jsr305.version>3.0.2</jsr305.version>
-        <docker.repo.project>development</docker.repo.project>
         <spring-cloud.version>3.1.4</spring-cloud.version>
     </properties>
 
@@ -52,6 +52,10 @@
         <dependency>
             <groupId>com.backbase.buildingblocks</groupId>
             <artifactId>service-sdk-starter-mapping</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>auth-security</artifactId>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>

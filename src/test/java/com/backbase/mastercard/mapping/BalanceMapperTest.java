@@ -13,12 +13,11 @@ import org.junit.jupiter.api.Test;
 
 public class BalanceMapperTest {
 
-    BalanceMapper balanceMapper = new BalanceMapper() {
-    };
+    BalanceMapper balanceMapper = new BalanceMapperImpl();
 
     @Test
     void mapTest() {
-        BalanceItem balance = balanceMapper.map(
+        BalanceItem balance = balanceMapper.mapResponse(
             new PostAccountsAccountBalancesOKBodyAccount()
                 .balances(List.of(
                     new PostAccountsAccountBalancesOKBodyAccountBalancesItems()

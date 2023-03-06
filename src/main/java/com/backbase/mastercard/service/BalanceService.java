@@ -30,10 +30,11 @@ public class BalanceService {
     private final RequestUtils requestUtils;
 
     public List<BalanceItem> getBalances(Set<String> arrangementIds) {
+        var requestInfo = balanceMapper.mapRequestInfo(requestUtils.buildRequestInfo());
         return arrangementIds.stream()
             .map(id -> new PostAccountsAccountBalancesParamsBody()
                 .accountId(id)
-                .requestInfo(requestUtils.buildBalancesRequestInfo()))
+                .requestInfo(requestInfo))
             .map(balanceRequest -> supplyAsync(() -> getArrangementBalance(balanceRequest), asyncExecutor)
                 .exceptionally(
                     e -> {
@@ -51,7 +52,7 @@ public class BalanceService {
             if (accountBalances.getAccount() == null) {
                 throw new NotFoundException().withMessage("Balances not found for account: " + balances.getAccountId());
             }
-            return balanceMapper.map(accountBalances.getAccount());
+            return balanceMapper.mapResponse(accountBalances.getAccount());
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
