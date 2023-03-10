@@ -11,22 +11,19 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RequestUtils {
 
-    public static final String ATTRIBUTE_ASPSP_ID = "aspspId";
-    public static final String ATTRIBUTE_CONSENT_ID = "consentId";
-    public static final String ATTRIBUTE_PSU_TPP_CUSTOMER_ID = "psuTppCustomerId";
+    public static final String CLAIM_ASPSP_ID = "aspspId";
+    public static final String CLAIM_CONSENT_ID = "consentId";
 
     private final InternalRequestContext requestContext;
     private final SecurityContextUtil securityContext;
 
     public RequestInfo buildRequestInfo() {
         RequestInfo requestInfo = new RequestInfo();
-        requestInfo.setPsuIPAddress(requestContext.getRemoteAddress());
+        Optional.ofNullable(requestContext.getRemoteAddress()).ifPresent(requestInfo::setPsuIPAddress);
         Optional.ofNullable(requestContext.getRequestUuid()).ifPresent(requestInfo::setXRequestId);
         Optional.ofNullable(requestContext.getUserAgent()).ifPresent(requestInfo::setPsuAgent);
-        securityContext.getUserTokenClaim(ATTRIBUTE_ASPSP_ID, String.class).ifPresent(requestInfo::setAspspId);
-        securityContext.getUserTokenClaim(ATTRIBUTE_CONSENT_ID, String.class).ifPresent(requestInfo::setConsentId);
-        securityContext.getUserTokenClaim(ATTRIBUTE_PSU_TPP_CUSTOMER_ID, String.class)
-            .ifPresent(requestInfo::setPsuTppCustomerId);
+        securityContext.getUserTokenClaim(CLAIM_ASPSP_ID, String.class).ifPresent(requestInfo::setAspspId);
+        securityContext.getUserTokenClaim(CLAIM_CONSENT_ID, String.class).ifPresent(requestInfo::setConsentId);
         return requestInfo;
     }
 
