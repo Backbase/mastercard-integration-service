@@ -1,13 +1,14 @@
 package com.backbase.mastercard.config;
 
+import java.util.Optional;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "mastercard.accounts.api")
+@ConfigurationProperties(prefix = "mastercard.mcob.ais.api")
 public class AccountsApiProperties {
 
-    String baseUri = "https://developer.mastercard.com/apigwproxy/openbanking/connect/api";
+    Optional<String> baseUri = Optional.empty();
     Proxy proxy = new Proxy();
 
     @Data

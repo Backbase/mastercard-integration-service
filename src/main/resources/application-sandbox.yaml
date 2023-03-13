@@ -2,6 +2,9 @@ logging:
   level:
     com.backbase: DEBUG
 
+server:
+  port: 9999
+
 eureka:
   client:
     enabled: false
@@ -10,4 +13,4 @@ mastercard:
   mcob:
     ais:
       api:
-        base-uri: http://localhost:${wiremock.server.port}
+        base-uri: https://developer.mastercard.com/apigwproxy/openbanking/connect/api

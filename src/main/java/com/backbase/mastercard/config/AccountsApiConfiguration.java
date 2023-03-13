@@ -1,8 +1,8 @@
 package com.backbase.mastercard.config;
 
 import com.backbase.mastercard.config.AccountsApiProperties.Proxy;
-import com.mastercard.openbanking.accounts.ApiClient;
-import com.mastercard.openbanking.accounts.api.AccountBalancesApi;
+import com.mastercard.mcob.ais.ApiClient;
+import com.mastercard.mcob.ais.api.AccountBalancesApi;
 import java.net.InetSocketAddress;
 import java.net.ProxySelector;
 import java.net.http.HttpClient;
@@ -18,9 +18,12 @@ public class AccountsApiConfiguration {
 
     @Bean
     public ApiClient apiClient(AccountsApiProperties accountsApiProperties) {
-        log.debug("Configuring api with Base Uri: {}", accountsApiProperties.getBaseUri());
         ApiClient apiClient = new ApiClient();
-        apiClient.updateBaseUri(accountsApiProperties.getBaseUri());
+        accountsApiProperties.getBaseUri()
+            .ifPresent(uri -> {
+                log.debug("Configuring api with Base Uri: {}", uri);
+                apiClient.updateBaseUri(uri);
+            });
         return configureProxy(apiClient, accountsApiProperties.getProxy());
     }
 

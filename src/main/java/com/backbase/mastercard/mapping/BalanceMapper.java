@@ -2,11 +2,11 @@ package com.backbase.mastercard.mapping;
 
 import com.backbase.arrangement.integration.outbound.balance.models.BalanceItem;
 import com.backbase.mastercard.model.RequestInfo;
-import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccount;
-import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItems;
-import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItems.CreditDebitIndicatorEnum;
-import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesOKBodyAccountBalancesItemsBalanceAmount;
-import com.mastercard.openbanking.accounts.models.PostAccountsAccountBalancesParamsBodyRequestInfo;
+import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesOKBodyAccount;
+import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesOKBodyAccountBalancesItems;
+import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesOKBodyAccountBalancesItems.CreditDebitIndicatorEnum;
+import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesOKBodyAccountBalancesItemsBalanceAmount;
+import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesParamsBodyRequestInfo;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
