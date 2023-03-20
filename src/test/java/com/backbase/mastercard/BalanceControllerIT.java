@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.backbase.buildingblocks.common.HttpCommunicationConstants;
-import com.backbase.buildingblocks.jwt.internal.token.InternalJwtClaimsSet;
 import com.backbase.buildingblocks.test.http.TestRestTemplateConfiguration;
 import com.backbase.buildingblocks.testutils.TestTokenUtil;
 import com.backbase.buildingblocks.testutils.TestTokenUtil.TestTokenBuilder;
@@ -36,17 +35,16 @@ public class BalanceControllerIT {
 
     @Test
     public void getBalancesTest() throws Exception {
-        InternalJwtClaimsSet jwt = new TestTokenBuilder()
+        String internalJwt = TestTokenUtil.encode(new TestTokenBuilder()
             .withClaim(CLAIM_ASPSP_ID, "420e5cff-0e2a-4156-991a-f6eeef0478cf")
             .withClaim(CLAIM_CONSENT_ID, "GFiTpF3:EBy5xGqQMatk")
-            .build();
-        String internalJwt = TestTokenUtil.encode(jwt);
+            .build());
         String arrangementId = "aa:q648383844dhhfHhTV";
 
         MvcResult result =
             mvc.perform(get("/service-api/v2/balances")
                     .param("arrangementIds", arrangementId)
-                    .header(HttpHeaders.AUTHORIZATION, TestRestTemplateConfiguration.TEST_SERVICE_TOKEN)
+                    .header(HttpHeaders.AUTHORIZATION, TestRestTemplateConfiguration.TEST_SERVICE_BEARER)
                     .header(HttpCommunicationConstants.X_CXT_USER_TOKEN, "Bearer " + internalJwt))
                 .andDo(print())
                 .andExpect(status().isOk())
