@@ -12,8 +12,8 @@
 
     <groupId>com.backbase</groupId>
     <artifactId>mastercard-integration-service</artifactId>
-    <version>1.2.0</version>
-    <name>Backbase :: Mastercard Integration Service</name>
+    <version>1.3.0</version>
+    <name>Mastercard :: OpenBanking Connect :: Integration Service</name>
 
     <properties>
         <docker.repo.project>development</docker.repo.project>
@@ -103,9 +103,17 @@
                                     <artifactId>arrangement-manager</artifactId>
                                     <classifier>api</classifier>
                                     <type>zip</type>
-                                    <outputDirectory>${project.build.directory}/specs</outputDirectory>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.backbase.dbs.paymentorder</groupId>
+                                    <artifactId>payment-order-service</artifactId>
+                                    <classifier>api</classifier>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
                                 </artifactItem>
                             </artifactItems>
+                            <outputDirectory>${project.build.directory}/specs</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -116,7 +124,7 @@
                 <version>0.17.0</version>
                 <executions>
                     <execution>
-                        <id>generate-service-api-code</id>
+                        <id>generate-arrangement-api</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -141,7 +149,57 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>generate-open-banking-accounts</id>
+                        <id>generate-payment-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <library>spring-boot</library>
+                            <generatorName>spring</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <inputSpec>
+                                ${project.build.directory}/specs/payment/payment-order-integration-outbound-api-v*.yaml
+                            </inputSpec>
+                            <modelPackage>com.backbase.payments.integration.model</modelPackage>
+                            <apiPackage>com.backbase.payments.integration.inbound.api</apiPackage>
+                            <configOptions>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useTags>true</useTags>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-integration-validator-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <library>spring-boot</library>
+                            <generatorName>spring</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <inputSpec>
+                                ${project.build.directory}/specs/payment/payment-order-integration-validator-api-v*.yaml
+                            </inputSpec>
+                            <modelPackage>com.backbase.payments.integration.validation.api.model</modelPackage>
+                            <apiPackage>com.backbase.payments.integration.validation.api</apiPackage>
+                            <configOptions>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useTags>true</useTags>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-mcob-ais-clients</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -155,7 +213,29 @@
                             <inputSpec>https://static.developer.mastercard.com/content/open-banking-connect/swagger/api-accounts-service.yaml</inputSpec>
                             <apiPackage>com.mastercard.mcob.ais.api</apiPackage>
                             <modelPackage>com.mastercard.mcob.ais.model</modelPackage>
-                            <invokerPackage>com.mastercard.mcob.ais</invokerPackage>
+                            <invokerPackage>com.mastercard.mcob</invokerPackage>
+                            <configOptions>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-mcob-aps-clients</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <generatorName>java</generatorName>
+                            <library>native</library>
+                            <skipValidateSpec>true</skipValidateSpec>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <inputSpec>https://static.developer.mastercard.com/content/open-banking-connect/swagger/api-payments-service.yaml</inputSpec>
+                            <apiPackage>com.mastercard.mcob.aps.api</apiPackage>
+                            <modelPackage>com.mastercard.mcob.aps.model</modelPackage>
+                            <invokerPackage>com.mastercard.mcob</invokerPackage>
                             <configOptions>
                                 <java8>true</java8>
                                 <dateLibrary>java8</dateLibrary>

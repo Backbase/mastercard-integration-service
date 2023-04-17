@@ -1,7 +1,7 @@
 package com.backbase.mastercard.config;
 
-import com.backbase.mastercard.config.AccountsApiProperties.Proxy;
-import com.mastercard.mcob.ais.ApiClient;
+import com.backbase.mastercard.config.OpenBankingApiProperties.Proxy;
+import com.mastercard.mcob.ApiClient;
 import com.mastercard.mcob.ais.api.AccountBalancesApi;
 import java.net.InetSocketAddress;
 import java.net.ProxySelector;
@@ -13,18 +13,18 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-@EnableConfigurationProperties(AccountsApiProperties.class)
-public class AccountsApiConfiguration {
+@EnableConfigurationProperties(OpenBankingApiProperties.class)
+public class OpenBankingApiConfiguration {
 
     @Bean
-    public ApiClient apiClient(AccountsApiProperties accountsApiProperties) {
+    public ApiClient apiClient(OpenBankingApiProperties openBankingApiProperties) {
         ApiClient apiClient = new ApiClient();
-        accountsApiProperties.getBaseUri()
+        openBankingApiProperties.getBaseUri()
             .ifPresent(uri -> {
-                log.debug("Configuring api with Base Uri: {}", uri);
+                log.debug("Configuring MCOB API client with Base Uri: {}", uri);
                 apiClient.updateBaseUri(uri);
             });
-        return configureProxy(apiClient, accountsApiProperties.getProxy());
+        return configureApiClientProxy(apiClient, openBankingApiProperties.getProxy());
     }
 
     @Bean
@@ -32,7 +32,7 @@ public class AccountsApiConfiguration {
         return new AccountBalancesApi(apiClient);
     }
 
-    private ApiClient configureProxy(ApiClient apiClient, Proxy proxy) {
+    private static ApiClient configureApiClientProxy(ApiClient apiClient, Proxy proxy) {
         if (proxy.getEnabled()) {
             log.debug("Enabling proxy configuration: {}", proxy);
             HttpClient.Builder builder = HttpClient.newBuilder();

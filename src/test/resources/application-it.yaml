@@ -8,6 +8,5 @@ eureka:
 
 mastercard:
   mcob:
-    ais:
-      api:
-        base-uri: http://localhost:${wiremock.server.port}
+    api:
+      base-uri: http://localhost:${wiremock.server.port}
