@@ -1,4 +1,4 @@
-package com.backbase.mastercard;
+package com.backbase.mastercard.rest;
 
 import static com.backbase.mastercard.util.RequestUtils.CLAIM_ASPSP_ID;
 import static com.backbase.mastercard.util.RequestUtils.CLAIM_CONSENT_ID;

@@ -11,6 +11,5 @@ eureka:
 
 mastercard:
   mcob:
-    ais:
-      api:
-        base-uri: https://developer.mastercard.com/apigwproxy/openbanking/connect/api
+    api:
+      base-uri: https://developer.mastercard.com/apigwproxy/openbanking/connect/api
