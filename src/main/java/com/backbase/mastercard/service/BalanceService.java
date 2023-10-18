@@ -13,10 +13,10 @@ import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesParamsBody;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class BalanceService {
 
     private final AccountBalancesApi accountBalancesApi;
     private final BalanceMapper balanceMapper;
-    private final Executor asyncExecutor;
+    private final AsyncTaskExecutor taskScheduler;
     private final RequestUtils requestUtils;
 
     public List<BalanceItem> getBalances(Set<String> arrangementIds) {
@@ -35,7 +35,7 @@ public class BalanceService {
             .map(id -> new PostAccountsAccountBalancesParamsBody()
                 .accountId(id)
                 .requestInfo(requestInfo))
-            .map(balanceRequest -> supplyAsync(() -> getArrangementBalance(balanceRequest), asyncExecutor)
+            .map(balanceRequest -> supplyAsync(() -> getArrangementBalance(balanceRequest), taskScheduler)
                 .exceptionally(
                     e -> {
                         log.error("Error when fetching balances for account", e);
