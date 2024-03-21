@@ -25,7 +25,7 @@ public class PaymentOrderService {
         String bankReferenceId = UUID.randomUUID().toString();
         return new PaymentOrdersPostResponseBody()
             .bankReferenceId(bankReferenceId)
-            .bankStatus("ACCEPTED");
+            .bankStatus("PROCESSED");
     }
 
     public PaymentOrderPutResponseBody updatePaymentOrder(String bankReferenceId,
@@ -33,7 +33,7 @@ public class PaymentOrderService {
         log.debug("Updating payment: {}", bankReferenceId);
         return new PaymentOrderPutResponseBody()
             .bankReferenceId(bankReferenceId)
-            .bankStatus("ACCEPTED");
+            .bankStatus("PROCESSED");
     }
 
     public PaymentValidationResponse validatePaymentOrder(PaymentValidationRequest paymentValidationRequest) {

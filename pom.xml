@@ -50,6 +50,10 @@
         </dependency>
         <dependency>
             <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
             <artifactId>service-sdk-starter-mapping</artifactId>
         </dependency>
         <dependency>
@@ -110,6 +114,13 @@
                                     <artifactId>payment-order-service</artifactId>
                                     <classifier>api</classifier>
                                     <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.backbase.dbs.cards</groupId>
+                                    <artifactId>card-manager</artifactId>
+                                    <type>zip</type>
+                                    <classifier>api</classifier>
                                     <overWrite>true</overWrite>
                                 </artifactItem>
                             </artifactItems>
@@ -189,6 +200,31 @@
                             </inputSpec>
                             <modelPackage>com.backbase.payments.integration.validation.api.model</modelPackage>
                             <apiPackage>com.backbase.payments.integration.validation.api</apiPackage>
+                            <configOptions>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useTags>true</useTags>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-cards-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <library>spring-boot</library>
+                            <generatorName>spring</generatorName>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <inputSpec>
+                                ${project.build.directory}/specs/card-manager/card-manager-client-api-v*.yaml
+                            </inputSpec>
+                            <apiPackage>com.backbase.cards.client.api</apiPackage>
+                            <modelPackage>com.backbase.cards.client.models</modelPackage>
                             <configOptions>
                                 <java8>true</java8>
                                 <dateLibrary>java8</dateLibrary>
