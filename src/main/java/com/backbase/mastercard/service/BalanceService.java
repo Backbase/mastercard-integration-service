@@ -5,7 +5,7 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 import com.backbase.arrangement.integration.outbound.balance.models.BalanceItem;
 import com.backbase.buildingblocks.presentation.errors.BadRequestException;
 import com.backbase.buildingblocks.presentation.errors.NotFoundException;
-import com.backbase.mastercard.mapping.BalanceMapper;
+import com.backbase.mastercard.mapper.BalanceMapper;
 import com.backbase.mastercard.util.RequestUtils;
 import com.mastercard.mcob.ais.api.AccountBalancesApi;
 import com.mastercard.mcob.ais.model.PostAccountsAccountBalancesOKBody;

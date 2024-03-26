@@ -1,4 +1,4 @@
-package com.backbase.mastercard.mapping;
+package com.backbase.mastercard.mapper;
 
 import com.backbase.arrangement.integration.outbound.balance.models.BalanceItem;
 import com.backbase.mastercard.model.RequestInfo;

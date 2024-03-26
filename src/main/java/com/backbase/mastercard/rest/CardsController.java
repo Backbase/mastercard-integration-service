@@ -6,12 +6,16 @@ import com.backbase.cards.client.models.ActivatePost;
 import com.backbase.cards.client.models.AddAuthorizedUserPost;
 import com.backbase.cards.client.models.CardHolder;
 import com.backbase.cards.client.models.CardItem;
+import com.backbase.cards.client.models.CardRequestPost;
 import com.backbase.cards.client.models.ChangeLimitsPostItem;
+import com.backbase.cards.client.models.Currency;
+import com.backbase.cards.client.models.Fee;
 import com.backbase.cards.client.models.LockStatusPost;
 import com.backbase.cards.client.models.RequestPinPost;
 import com.backbase.cards.client.models.RequestReplacementPost;
 import com.backbase.cards.client.models.ResetPinPost;
 import com.backbase.cards.client.models.YearMonth;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +50,18 @@ public class CardsController implements CardsApi {
     }
 
     @Override
+    public ResponseEntity<Fee> getCardReplacementFee(String id) {
+        return ResponseEntity.ok(new Fee(new Currency(BigDecimal.ZERO, "GPB")));
+    }
+
+    @Override
     public ResponseEntity<List<CardItem>> getCards(List<String> ids, List<String> status, List<String> types) {
         return ResponseEntity.ok(List.of(card(UUID.randomUUID().toString())));
+    }
+
+    @Override
+    public ResponseEntity<CardItem> postCard(CardRequestPost cardRequestPost) {
+        return ResponseEntity.ok(card(cardRequestPost.getArrangementId()));
     }
 
     @Override
