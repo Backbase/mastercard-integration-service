@@ -21,6 +21,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -60,6 +61,7 @@ public class CardsController implements CardsApi {
     }
 
     @Override
+    @PreAuthorize("checkPermission('Personal Finance Management', 'Manage Cards', {'create'})")
     public ResponseEntity<CardItem> postCard(CardRequestPost cardRequestPost) {
         return ResponseEntity.ok(card(cardRequestPost.getArrangementId()));
     }

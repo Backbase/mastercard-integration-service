@@ -1,5 +1,6 @@
 package com.backbase.mastercard.rest;
 
+import com.backbase.buildingblocks.backend.security.accesscontrol.accesscontrol.AccessControlValidatorImpl;
 import com.backbase.buildingblocks.testutils.TestTokenUtil;
 import com.backbase.cards.client.models.CardRequestPost;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,12 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,8 +32,13 @@ class CardsControllerIT {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @MockBean
+    private AccessControlValidatorImpl accessControlValidator;
+
     @Test
     void postCardAuthenticatedTest() throws Exception {
+        when(accessControlValidator.checkPermissions("Personal Finance Management", "Manage Cards", "create")).thenReturn(true);
+
         var internalJwt = TestTokenUtil.encode(new TestTokenUtil.TestTokenBuilder().user().build());
 
         // Create the CardRequestPost object using builder pattern
