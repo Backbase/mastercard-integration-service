@@ -167,6 +167,7 @@ mvn clean install
 
 ### Run Locally
 ```bash
+source .env
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
